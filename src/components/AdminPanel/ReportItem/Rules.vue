@@ -43,7 +43,7 @@ export default {
     <div class="rulesList">
       <div class="ruleItem" v-for="rule in ruleData" :key="rule.id">
         <div class="p-float-label">
-          <Dropdown v-model="selected" :value="selected" :model-value="selected" inputId="OAR" optionLabel="name" :options="items"
+          <Dropdown v-model="rule.OParam"  inputId="OAR" optionLabel="name" :options="items"
                     placeholder="Общий академический рейтинг"
                     class="w-full md:w-14rem"/>
           <label for="OAR" class="label">Общий академический рейтинг</label>

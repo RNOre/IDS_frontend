@@ -47,7 +47,7 @@ export default {
             <span class="p-float-label">
                 <InputText id="value" v-model="value" type="text" :class="{ 'p-invalid': errorMessage }"
                            aria-describedby="text-error"/>
-                <label for="value">Шифр</label>
+                <label for="value">Номер зач. книжки</label>
             </span>
       <div class="p-float-label">
         <Dropdown v-model="studentGroupId" :options="groupData" optionLabel="name"

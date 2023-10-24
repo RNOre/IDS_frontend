@@ -6,21 +6,36 @@ export default {
   name: 'App',
   components:
       {Sidebar,},
+  methods:{
+    routeHandle(title){
+      this.currentPage=title
+      this.visible=false;
+    }
+  },
   data() {
     return {
       visible: ref(false),
+      currentPage:'',
       linkData: [
         {
-          title: 'Данные',
-          link: '/dataPanel'
+          title: 'Мероприятия',
+          link: '/events'
         },
         {
-          title: 'Отчет',
-          link: '/reportPanel'
+          title: 'Студенты',
+          link: '/students'
         },
         {
           title: 'Журнал',
-          link: '/journalPanel'
+          link: '/journal'
+        },
+        {
+          title: 'Рейтинг',
+          link: '/score'
+        },
+        {
+          title: 'Редактор модели',
+          link: '/model'
         },
         {
           title: 'Справка',
@@ -36,12 +51,13 @@ export default {
     <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary header">
       <div class="container-fluid">
         <Button icon="pi pi-align-justify" @click="visible = true"/>
+        <h1 style="color: slateblue">{{ currentPage }}</h1>
         <i class="pi pi-user" style="color: slateblue; font-size: 2rem"></i>
       </div>
     </nav>
     <Sidebar v-model:visible="visible">
       <router-link v-for="linkItem in linkData" :to="linkItem.link" :key="linkItem.title">
-        <h2 class="linkItem" @click="visible=false">{{linkItem.title}}</h2>
+        <h2 class="linkItem" @click="routeHandle(linkItem.title)" >{{linkItem.title}}</h2>
       </router-link>
     </Sidebar>
   </div>
