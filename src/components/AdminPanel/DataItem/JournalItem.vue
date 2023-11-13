@@ -1,6 +1,7 @@
 <script>
 import TreeTable from "primevue/treetable";
 import Column from "primevue/column";
+import {getData} from "../../../service/journalService.js";
 
 export default {
   name: 'JournalItem',
@@ -15,78 +16,87 @@ export default {
   },
   methods:{
     onNodeSelect(node){
-      console.log(node)
+      if(Number(node.key)){
+        console.log(node.data.id)
+      }else{
+        console.log(node.data.name)
+      }
+    },
+    test(){
+      getData();
     }
   },
   mounted() {
-    Promise.resolve([
-      {
-        key: '0',
-        data: {
-          name: 'Event 1',
-          icon: 'добавить участника',
-          command: () => {
-            console.log('l;kasd')
-          },
-        },
-
-        children: [
-          {
-            key: '0-0',
-            data: {
-              name: '1 student',
-              icon: 'убрать из участия'
-            },
-
-          },
-          {
-            key: '0-1',
-            data: {
-              name: '2 student',
-              icon: 'убрать из участия'
-            }
-          },
-          {
-            key: '0-2',
-            data: {
-              name: '3 student',
-              icon: 'убрать из участия'
-            }
-          }
-        ]
-      },
-      {
-        key: '1',
-        data: {
-          name: 'Event 2',
-          icon: 'добавить участника',
-          command: () => {
-            console.log('l;kasd')
-          },
-        },
-
-        children: [
-          {
-            key: '1-0',
-            data: {
-              name: '1 student',
-              icon: 'убрать из участия'
-            },
-
-          },
-          {
-            key: '1-1',
-            data: {
-              name: '4 student',
-              icon: 'убрать из участия'
-            }
-          },
-
-        ]
-      },
-    ])
-        .then((data) => this.nodes = data)
-  }
+    // Promise.resolve([
+    //   {
+    //     key: '0',
+    //     data: {
+    //       name: 'Научная конференция',
+    //       icon: 'добавить участника',
+    //       command: () => {
+    //         console.log('l;kasd')
+    //       },
+    //     },
+    //
+    //     children: [
+    //       {
+    //         key: '0-0',
+    //         data: {
+    //           name: '423535',
+    //           icon: 'убрать из участия'
+    //         },
+    //
+    //       },
+    //       {
+    //         key: '0-1',
+    //         data: {
+    //           name: '694358',
+    //           icon: 'убрать из участия'
+    //         }
+    //       },
+    //       {
+    //         key: '0-2',
+    //         data: {
+    //           name: '239472',
+    //           icon: 'убрать из участия'
+    //         }
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     key: '1',
+    //     data: {
+    //       name: 'Олимпиада',
+    //       icon: 'добавить участника',
+    //       command: () => {
+    //         console.log('l;kasd')
+    //       },
+    //     },
+    //
+    //     children: [
+    //       {
+    //         key: '1-0',
+    //         data: {
+    //           name: '543823',
+    //           icon: 'убрать из участия'
+    //         },
+    //       },
+    //       {
+    //         key: '1-1',
+    //         data: {
+    //           name: '463534',
+    //           icon: 'убрать из участия'
+    //         }
+    //       },
+    //
+    //     ]
+    //   },
+    // ])
+    //     .then((data) => this.nodes = data)
+  // }
+  Promise.resolve(getData())
+      .then((data) => this.nodes = data)
+}
 }
 </script>
 <template>

@@ -10,10 +10,10 @@ export const score = {
                     middle: [, 0, 100, 0],
                     height: [, , 0, 100, 100, 100, 100, 100],
                 },
-                param:{
-                    min:100,
-                    mid:150,
-                    max:200
+                param: {
+                    min: 100,
+                    mid: 150,
+                    max: 200
                 }
             },
             RODChartData: {
@@ -24,7 +24,7 @@ export const score = {
                 labels: '',
                 datasets: ''
             },
-
+            studentsScore: []
         }
     },
     mutations: {
@@ -39,6 +39,9 @@ export const score = {
         },
         setDataSets(state, payload) {
             state.OARChartData.datasets = payload;
+        },
+        setStudentsScore(state, payload) {
+            state.studentsScore = payload
         }
     },
     actions: {
@@ -47,6 +50,10 @@ export const score = {
         },
         setDataSets({commit}, payload) {
             commit('setDataSets', payload)
+        },
+        async getStudentsScores({commit}) {
+            await axios.get('http://localhost:8876/api/v1/test')
+                .then(resp => commit('setStudentsScore', resp.data))
         }
     },
     getters: {

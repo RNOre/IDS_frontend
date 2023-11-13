@@ -6,7 +6,7 @@ import {mapState} from "vuex";
 import {format} from "date-fns";
 
 export default {
-  name: 'AddStudent',
+  name: 'AddEvent',
   components: {
     InputText,
     Dropdown,

@@ -18,6 +18,10 @@ export default {
       currentPage:'',
       linkData: [
         {
+          title: 'Главное меню',
+          link: '/adminPanel'
+        },
+        {
           title: 'Мероприятия',
           link: '/events'
         },

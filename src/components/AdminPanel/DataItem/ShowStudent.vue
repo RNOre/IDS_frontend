@@ -26,9 +26,10 @@ export default {
 <template>
   <div  class="showStudent">
     <div>
-      <h2>id студента:  </h2>
-      <h2>Шифр студента: {{ data.value }}</h2>
-      <h2>Группа: {{data.groups}}</h2>
+      <h2>№ зачетной книжки: {{ data.value }}</h2>
+      <h2>Группа: {{data.groups[0].name}}</h2>
+      <h2>Учебное заведение: {{data.groups[0].EI}}</h2>
+      <h2>Дата зачисления: {{data.groups[0].ed}}</h2>
     </div>
     <div>
       <h2>Баллы студента</h2>

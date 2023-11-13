@@ -8,17 +8,20 @@ import ModelEditor from "../components/AdminPanel/DataItem/ModelEditor.vue";
 import ScoreItem from "../components/AdminPanel/DataItem/ScoreItem.vue";
 import EventsItem from "../components/AdminPanel/DataItem/EventsItem.vue";
 import JournalItem from "../components/AdminPanel/DataItem/JournalItem.vue";
+import TestItem from "../components/AdminPanel/ReportItem/testItem.vue";
 
 
 const routes = [
-    // {path: '/', component: AuthPage},
+    {path: '/', component: AuthPage},
     {path: '/adminPanel', component: AdminPanel},
     {path: '/students', component: StudentsItem},
     {path: '/events', component: EventsItem},
     {path: '/journal', component: JournalItem},
     {path: '/score', component: ScoreItem},
     {path: '/model', component: ModelEditor},
-    // {path: '/help', component: HelpItem},
+    // {path: '/auth', component: AuthPage},
+    {path: '/help', component: ReportItem},
+    {path: '/test', component: TestItem},
 ]
 
 export const router = createRouter({

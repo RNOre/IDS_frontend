@@ -11,17 +11,22 @@ import {useConfirm} from "primevue/useconfirm";
 import AddStudent from "./AddStudent.vue";
 import ShowStudent from "./ShowStudent.vue";
 import DataTable from "primevue/datatable";
+import InputText from "primevue/inputtext";
+import {FilterMatchMode} from "primevue/api";
+import AddEvent from "./AddEvent.vue";
 
 export default {
   name: 'EventsItem',
   components: {
+    AddEvent,
     AddStudent,
     ShowStudent,
     DataTable,
     Column,
     Dialog,
     Toast,
-    ConfirmDialog
+    ConfirmDialog,
+    InputText
   },
   data() {
     return {
@@ -29,6 +34,10 @@ export default {
       addStudentVisible: false,
       currentStudent: 0,
       messages: [],
+      filters:{
+        global:{value: null, matchMode:FilterMatchMode.CONTAINS},
+        value:{value: null, matchMode: FilterMatchMode.STARTS_WITH}
+      },
       toast: useToast(),
       items: ref([
         {
@@ -102,8 +111,18 @@ export default {
     <Toast/>
     <ConfirmDialog></ConfirmDialog>
     <h1>Добавление/Редактирование/Просмотр данных</h1>
-    <Button class="addStudentBtn" label="Добавить мероприятие" @click="addStudentVisible=true"/>
-    <DataTable :value="eventData" stripedRows tableStyle="min-width: 50rem">
+    <DataTable v-model:filters="filters" :value="eventData" stripedRows tableStyle="min-width: 50rem">
+      <template #header>
+        <div class="header">
+          <div class="flex justify-content-end">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"/>
+            <InputText v-model="filters['global'].value" placeholder="Название мероприятия"/>
+          </span>
+          </div>
+          <Button class="addStudentBtn" label="Добавить мероприятие" @click="addStudentVisible=true"/>
+        </div>
+      </template>
       <Column field="name" header="Название" headerStyle="justify-content:center; vertical-align:middle"
               bodyStyle="text-align:center; vertical-align:middle"></Column>
       <Column style="min-width: 1rem" bodyStyle="text-align:center">
@@ -123,14 +142,19 @@ export default {
             :style="{ width: '50vw' }">
       <ShowStudent :currentStudent="currentStudent"/>
     </Dialog>
-    <Dialog v-model:visible="addStudentVisible" @close="addStudentVisible=false" modal header="Добавление студента"
+    <Dialog v-model:visible="addStudentVisible" @close="addStudentVisible=false" modal header="Добавление мероприятия"
             :style="{ width: '50vw' }">
-      <AddStudent :currentStudent="currentStudent"/>
+      <AddEvent :currentStudent="currentStudent"/>
     </Dialog>
   </div>
 </template>
 <style scoped>
 .student {
   margin-top: 50px;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

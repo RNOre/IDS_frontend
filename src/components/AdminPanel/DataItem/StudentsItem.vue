@@ -11,6 +11,8 @@ import {useConfirm} from "primevue/useconfirm";
 import AddStudent from "./AddStudent.vue";
 import ShowStudent from "./ShowStudent.vue";
 import DataTable from "primevue/datatable";
+import {FilterMatchMode} from "primevue/api";
+import InputText from 'primevue/inputtext';
 
 export default {
   name: 'StudentItem',
@@ -21,13 +23,18 @@ export default {
     Column,
     Dialog,
     Toast,
-    ConfirmDialog
+    ConfirmDialog,
+    InputText
   },
   data() {
     return {
       showStudentVisible: false,
       addStudentVisible: false,
       currentStudent: 0,
+      filters: {
+        global: {value: null, matchMode: FilterMatchMode.CONTAINS},
+        value: {value: null, matchMode: FilterMatchMode.STARTS_WITH}
+      },
       eventData: [
         {
           id: '1',
@@ -120,11 +127,23 @@ export default {
     <Toast/>
     <ConfirmDialog></ConfirmDialog>
     <h1>Добавление/Редактирование/Просмотр данных</h1>
-    <Button class="addStudentBtn" label="Добавить студента" @click="addStudentVisible=true"/>
-    <DataTable :value="studentData" stripedRows tableStyle="min-width: 50rem">
+
+    <DataTable v-model:filters="filters" filterDisplay="row" :global-filter-fields="['id', 'value']"
+               :value="studentData" stripedRows tableStyle="min-width: 50rem">
+      <template #header>
+        <div class="header">
+          <div class="flex justify-content-end">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"/>
+            <InputText v-model="filters['global'].value" placeholder="Номер зач. книжки"/>
+          </span>
+          </div>
+          <Button class="addStudentBtn" label="Добавить студента" @click="addStudentVisible=true"/>
+        </div>
+      </template>
       <Column field="id" header="id" headerStyle="justify-content:center; vertical-align:middle"
               bodyStyle="text-align:center; vertical-align:middle"></Column>
-      <Column field="value" header="Шифр" headerStyle="justify-content:center; vertical-align:middle"
+      <Column field="value" header="№ зачетной книжки" headerStyle="justify-content:center; vertical-align:middle"
               bodyStyle="text-align:center; vertical-align: middle"></Column>
       <Column style="min-width: 1rem" bodyStyle="text-align:center">
         <template #body="{data}">
@@ -140,7 +159,7 @@ export default {
       </Column>
     </DataTable>
     <Dialog v-model:visible="showStudentVisible" modal header="Подробная информация о студенте"
-            :style="{ width: '50vw' }">
+            :style="{ width: '60vw' }">
       <ShowStudent :currentStudent="currentStudent"/>
     </Dialog>
     <Dialog v-model:visible="addStudentVisible" @close="addStudentVisible=false" modal header="Добавление студента"
@@ -152,5 +171,11 @@ export default {
 <style scoped>
 .student {
   margin-top: 50px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
